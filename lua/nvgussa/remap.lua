@@ -1,39 +1,57 @@
-local function map(m, k, v)
-    vim.keymap.set(m, k, v, { silent = true })
+local function map(m, k, v, opts)
+    vim.keymap.set(m, k, v, opts)
 end
+local cmd = vim.cmd
+local g = vim.g
 
-vim.g.mapleader = " "
-map("n", "<leader>ft", vim.cmd.Ex)
+g.mapleader = " "
+-- map("n", "<leader>ft", cmd.Ex) --launch explorer
+-- map("n", "<leader>ft", ":Ex <CR> :vert res 35 <CR>") --launch explorer
+-- map("n", "<leader>br", ":vert res 35 <CR>") -- resize juffer
+map("n", "<leader>ft", ":NvimTreeToggle<CR>") --launch explorer
 map("i", "fd", "<ESC>")
 
 
 -- move oneline up or down, like in vs code
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+map("v", "J", ":m '>+1<CR>gv=gv")
+map("v", "K", ":m '<-2<CR>gv=gv")
 
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
--- vim.keymap.set("n", "<leader>Y", [["+Y
+map({ "n", "v" }, "<leader>y", [["+y]])
+-- map("n", "<leader>Y", [["+Y
 
 -- move between splits
-vim.keymap.set("n", "<leader>wh", "<C-w>h")
-vim.keymap.set("n", "<leader>wl", "<C-w>l")
-vim.keymap.set("n", "<leader>wj", "<C-w>j")
-vim.keymap.set("n", "<leader>wk", "<C-w>k")
-vim.keymap.set("n", "<leader>wo", "<C-w>o")
+map("n", "<leader>wh", "<C-w>h")
+map("n", "<leader>wl", "<C-w>l")
+map("n", "<leader>wj", "<C-w>j")
+map("n", "<leader>wk", "<C-w>k")
+map("n", "<leader>wo", "<C-w>o")
 
 
 -- move splits
-vim.keymap.set("n", "<leader>wH", "<C-w>H")
-vim.keymap.set("n", "<leader>wL", "<C-w>L")
-vim.keymap.set("n", "<leader>wJ", "<C-w>J")
-vim.keymap.set("n", "<leader>wK", "<C-w>K")
+map("n", "<leader>wH", "<C-w>H")
+map("n", "<leader>wL", "<C-w>L")
+map("n", "<leader>wJ", "<C-w>J")
+map("n", "<leader>wK", "<C-w>K")
 
-vim.keymap.set("n", "<leader>fc", ":lua vim.lsp.buf.format()<CR>")
+-- format code
+map("n", "<leader>fc", ":lua vim.lsp.buf.format()<CR>")
 
 
-vim.keymap.set("n", "<leader>h", ":sb<CR>") -- split below
-vim.keymap.set("n", "<leader>v", ":vsp<CR>") -- split right
+--splits
+map("n", "<leader>h", cmd.sp, {desc = '[h] Split window horizontally' }) -- split below
+map("n", "<leader>v", cmd.vsp, {desc = '[v] Split window vertically' }) -- split right
+map("n", "<leader>w=", "<C-w>=", {desc = '[w=] Set split size equal' } ) -- split right
 
-vim.keymap.set('t', 'fd', [[<C-\><C-n>]]) -- esc in terminal
-vim.keymap.set("n", "<leader>fs", ":w<CR>") -- split below
-vim.keymap.set("n", "<leader>q", ":q<CR>") -- split below
+-- quit and save
+map("n", "<leader>fs", cmd.w)
+
+-- map("n", "<leader>q", ":q<CR>")
+map("n", "<leader>q", cmd.q)
+
+-- terminal
+map('t', 'fd', [[<C-\><C-n>]]) -- esc in terminal
+
+--buffers
+map("n", "<leader>bd", cmd.bd, {desc = '[bd] Delete current buffer'})
+map("n", "<leader>bn", cmd.bn, {desc = '[bn] Go to next buffer'})
+map("n", "<leader>bp", cmd.bp, {desc = '[bp] Go to previous buffer'})

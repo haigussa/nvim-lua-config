@@ -25,6 +25,15 @@ return require('packer').startup(function(use)
     use("morhetz/gruvbox")
 
 
+    -- file explorer
+    use { 'nvim-tree/nvim-tree.lua',
+        requires = {
+            'nvim-tree/nvim-web-devicons', -- optional, for file icons
+        },
+        -- tag = 'nightly' -- optional, updated every week. (see issue #1193)
+    }
+
+
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = true }
@@ -54,9 +63,9 @@ return require('packer').startup(function(use)
         'VonHeikemen/lsp-zero.nvim',
         requires = {
             -- LSP Support
-            { 'neovim/nvim-lspconfig' },
             { 'williamboman/mason.nvim' },
             { 'williamboman/mason-lspconfig.nvim' },
+            { 'neovim/nvim-lspconfig' },
 
             -- Autocompletion
             { 'hrsh7th/nvim-cmp' },
@@ -71,5 +80,11 @@ return require('packer').startup(function(use)
             { 'rafamadriz/friendly-snippets' },
         }
     }
+
+
+    -- autopairs
+    use("windwp/nvim-autopairs")
+
+
 
 end)
